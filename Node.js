@@ -1,6 +1,6 @@
-class BBSTNode {
-    constructor(value) {
-        this.value = value;
+export class BBSTNode {
+    constructor(data) {
+        this.data = data;
         this.left = null;
         this.right = null;
     }

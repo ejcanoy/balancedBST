@@ -1,6 +1,6 @@
 import { BBSTNode } from "./Node.js";
 
-class BBST {
+export class BBST {
     constructor(arr) {
         arr.sort((a, b) => a - b);
         const noDuplicates = this.#removeDuplicates(arr)
@@ -119,16 +119,18 @@ class BBST {
         return ptr;
     }
 
-    levelOrder(callback = this.#printout, root = this.root) {
+    levelOrder(callback = this.#printout, root = this.root, result = []) {
         const q = [];
         let ptr = null;
         q.push(root);
         while (q.length > 0) {
             ptr = q.shift();
             callback(ptr.data);
+            result.push(ptr.data);
             if (ptr.left) q.push(ptr.left);
             if (ptr.right) q.push(ptr.right);
         }
+        return result;
     }
 
     #printout = (data) => {
@@ -210,20 +212,5 @@ class BBST {
         this.root = this.#buildTree(vals, 0, vals.length - 1);
     }
 }
-
-
-
-const prettyPrint = (node, prefix = "", isLeft = true) => {
-    if (node === null) {
-        return;
-    }
-    if (node.right !== null) {
-        prettyPrint(node.right, `${prefix}${isLeft ? "│   " : "    "}`, false);
-    }
-    console.log(`${prefix}${isLeft ? "└── " : "┌── "}${node.data}`);
-    if (node.left !== null) {
-        prettyPrint(node.left, `${prefix}${isLeft ? "    " : "│   "}`, true);
-    }
-};
 
 
